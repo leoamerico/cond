@@ -6,6 +6,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -21,30 +24,28 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table
-@Inheritance(strategy=InheritanceType.JOINED)
-public class PessoaFisica extends Pessoa implements Serializable{
+public class PessoaFisica implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	@Column
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="idPessoaFisica")
+	private int id;
 	private String nome;	
 	private String cpf;
 	private String estadoCivil;
 	private String registroGeral;
 	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date dataNascimento;
+	private String telefone;
+	private String email;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idEndereco",insertable=true, updatable=true)
 	@Fetch(FetchMode.JOIN)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Endereco endereco;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "idTelefone",insertable=true, updatable=true)
-	@Fetch(FetchMode.JOIN)
-	@Cascade(CascadeType.SAVE_UPDATE)
-	private Telefone telefone;
 	
 	@OneToOne(mappedBy="usuario")
 	@JoinColumn(name="idPessoaFisica")
@@ -69,11 +70,23 @@ public class PessoaFisica extends Pessoa implements Serializable{
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 	public Endereco getEndereco() {
 		return endereco;
 	}
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public void setEstadoCivil(String estadoCivil) {
 		this.estadoCivil = estadoCivil;
@@ -86,12 +99,6 @@ public class PessoaFisica extends Pessoa implements Serializable{
 	}
 	public void setRegistroGeral(String registroGeral) {
 		this.registroGeral = registroGeral;
-	}
-	public void setTelefone(Telefone telefone) {
-		this.telefone = telefone;
-	}
-	public Telefone getTelefone() {
-		return telefone;
 	}
 	public Acesso getAcesso() {
 		return acesso;

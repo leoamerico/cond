@@ -23,11 +23,8 @@
   <property name="use_sql_comments">true</property>
   
   <mapping class="br.com.login.beans.comum.Acesso"/>
-  <mapping class="br.com.login.beans.comum.Email"/>
   <mapping class="br.com.login.beans.comum.Endereco"/>
-  <mapping class="br.com.login.beans.comum.Pessoa"/>
   <mapping class="br.com.login.beans.comum.PessoaFisica"/>
-  <mapping class="br.com.login.beans.comum.Telefone"/>
     
  </session-factory>
 </hibernate-configuration>
